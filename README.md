@@ -45,11 +45,21 @@ $\textcolor{red}{\textsf{My questions to research more about:}}$
 
 - each RL algo has all possible actions, all posisble states of the system, given the environment the system operates in. The Q-learning based RL algorithm has an associated q-value derived from a reward function value for each combination of state and action. This paper uses a custom fuction to calculate Q-value for each pair of state and action;
 ```math
-Q(s_i, a_i) = r_{action}(s_i, a_j) + \gamma Max[Q(s_j, all\ possible\ actions)]; where 
+Q(s_i, a_i) = r_{action}(s_i, a_j) + \gamma\ Max[Q(s_j, all\ possible\ actions)]; where 
 ```
 $ \gamma \in [0, 1] $ - interpretation: value closer to 1 means algorithm will consider higher weights for rewards from future actions compared to value of 0. 
 
-- note on rewards of a control policy; for a state $s_i$;  $r_{policy} (s_i) = w_{US}.r_{US}+ w_{AB}.r_{AB}; where$ US is user satisfaction; AB is achieved benefit from the automation 
+- note on rewards of a control policy; for a state $s_i$; 
+ ```math 
+ r_{policy} (s_i) = w_{US}.r_{US}+ w_{AB}.r_{AB}; where
+```
+US is user satisfaction; AB is achieved benefit from the automation 
 
 
-formula for calculating the reward from the user satisfaction; three weighing factors/points to converts number of successful/unsuccessful events over a given duration 
+formula for calculating the reward from the user satisfaction; three weighing factors/points to converts number of successful/unsuccessful events over a given duration: two positive - for successful execution, and one negative weight (for user overrides) $\alpha_1, \alpha_2, (-ve) \beta $ 
+
+```math
+r_{US} = [\frac {\alpha_1 * (\text Number\ of\ F_{coorect -No\ UP})+\alpha_2 * (\text Number\ of\ F_{coorect - UP}) 
+-\beta * (\text Number\ of\ F_{overriden})}{(\text Number\ of\ F_{coorect -No\ UP}\ + \text Number\ of\ F_{coorect - UP}\ + \text Number\ of\ F_{overriden})}] \times 100
+```
+
